@@ -1,42 +1,42 @@
 import java.util.Random;
 
 public class EmployeeWageComputation {
-
     // Constants
     public static final int WAGE_PER_HOUR = 20;
-    public static final int FULL_TIME = 1;
-    public static final int PART_TIME = 2;
+    public static final int FULL_DAY_HOURS = 8;
+    public static final int PART_TIME_HOURS = 4;
+    public static final int WORKING_DAYS_IN_MONTH = 20;
 
     public static void main(String[] args) {
         System.out.println("Welcome to Employee Wage Computation");
 
-        // Randomly determine whether the employee is full-time, part-time, or absent
-        Random random = new Random();
-        int employeeType = random.nextInt(3); // 0 for absent, 1 for full-time, 2 for part-time
+        int totalWage = 0;
 
-        int workingHours = 0;
+        // Calculate monthly wage for the employee
+        for (int day = 1; day <= WORKING_DAYS_IN_MONTH; day++) {
+            Random random = new Random();
+            int employeeType = random.nextInt(3); // 0 for absent, 1 for full-time, 2 for part-time
 
-        // Switch case to handle employee types
-        switch (employeeType) {
-            case FULL_TIME:
-                workingHours = 8;  // Full-time employee works 8 hours
-                System.out.println("Employee is Full-Time");
-                break;
+            int workingHours = 0;
+            switch (employeeType) {
+                case 1: // Full-time
+                    workingHours = FULL_DAY_HOURS;
+                    break;
+                case 2: // Part-time
+                    workingHours = PART_TIME_HOURS;
+                    break;
+                default: // Absent
+                    workingHours = 0;
+                    break;
+            }
 
-            case PART_TIME:
-                workingHours = 4;  // Part-time employee works 4 hours
-                System.out.println("Employee is Part-Time");
-                break;
-
-            default:
-                System.out.println("Employee is Absent");
-                break;
+            // Calculate the daily wage and add to total wage
+            int dailyWage = WAGE_PER_HOUR * workingHours;
+            totalWage += dailyWage;
         }
 
-        // Calculate the wage
-        int dailyWage = WAGE_PER_HOUR * workingHours;
-
-        // Display the calculated daily wage
-        System.out.println("Daily Employee Wage: $" + dailyWage);
+        // Display the total monthly wage
+        System.out.println("Total Monthly Wage: $" + totalWage);
     }
 }
+
